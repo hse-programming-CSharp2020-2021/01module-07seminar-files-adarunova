@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 
 /*
  * По массиву A целых чисел со значениями из диапазона (1; 10000] создать массив целых чисел B,
@@ -21,25 +22,56 @@ namespace Task02
     {
         private const string inputPath = "input.txt";
         private const string outputPath = "output.txt";
+
+        private static readonly int[] powers = { 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384 };
         
         static int[] ReadFile(string path)
         {
-            // TODO: implement this method
+            string[] numberStr = File.ReadAllText(path).Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            int[] numbers = new int[numberStr.Length];
+            for (int i = 0; i < numbers.Length; ++i)
+            {
+                numbers[i] = int.Parse(numberStr[i]);
+            }
+            return numbers;
         }
         
         static bool CheckArray(int[] array)
         {
-            // TODO: implement this method
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] > 10000 || array[i] <= 1)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
         
         static int[] ConvertArray(int[] array)
         {
-            // TODO: implement this method
+            for (int i = 0; i < array.Length; i++)
+            {
+                for (int j = 1; j < powers.Length; j++)
+                {
+                    if (array[i] <= powers[j])
+                    {
+                        array[i] = powers[j - 1];
+                        break;
+                    }
+                }
+            }
+            return array;
         }
 
         static void WriteFile(string path, int[] array)
         {
-            // TODO: implement this method
+            StringBuilder ans = new StringBuilder();
+            for (int i = 0; i < array.Length; i++)
+            {
+                ans.Append(array[i].ToString().ToLower()).Append(" ");
+            }
+            File.WriteAllText(outputPath, ans.ToString());
         }
 
         // you do not need to fill your file manually, you can work with console input
@@ -54,15 +86,19 @@ namespace Task02
             try
             {
                 A = ReadFile(inputPath);
-                
                 if (!CheckArray(A))
-                    // TODO: implement this case
-                
+                {
+                    Console.WriteLine("Incorrect Input");
+                    return;
+                }
                 B = ConvertArray(A);
                 WriteFile(outputPath, B);
             }
-            // TODO: catch with meaningful message
-            
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
             // do not touch
             ConsoleOutput();
         }

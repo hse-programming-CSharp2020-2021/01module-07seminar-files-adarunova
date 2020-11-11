@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 
 /*
  * По массиву A целых чисел со значениями из диапазона [-10;10] создать массив булевских значений L.
@@ -25,22 +26,52 @@ namespace _01_07_Files
         
         static int[] ReadFile(string path)
         {
-            // TODO: implement this method
+            string[] numberStr = File.ReadAllText(path).Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            int[] numbers = new int[numberStr.Length];
+            for (int i = 0; i < numbers.Length; ++i)
+            {
+                numbers[i] = int.Parse(numberStr[i]);
+            }
+            return numbers;
         }
 
         static bool CheckArray(int[] array)
         {
-            // TODO: implement this method
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] > 10 || array[i] < -10)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
         
         static bool[] IntToBoolArray(int[] array)
         {
-            // TODO: implement this method
+            bool[] L = new bool[array.Length];
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] < 0)
+                {
+                    L[i] = false;
+                }
+                else
+                {
+                    L[i] = true;
+                }
+            }
+            return L;
         }
         
         static void WriteFile(string path, bool[] array)
         {
-            // TODO: implement this method
+            StringBuilder ans = new StringBuilder();
+            for(int i = 0; i < array.Length; i++)
+            {
+                ans.Append(array[i].ToString().ToLower()).Append(" ");
+            }
+            File.WriteAllText(outputPath, ans.ToString());
         }
 
         // you do not need to fill your file, you can work with console input
@@ -55,14 +86,18 @@ namespace _01_07_Files
             try
             {
                 A = ReadFile(inputPath);
-                
                 if (!CheckArray(A))
-                    // TODO: implement this case
-                
+                {
+                    Console.WriteLine("Incorrect Input");
+                    return;
+                }
                 L = IntToBoolArray(A);
                 WriteFile(outputPath, L);
             }
-            // TODO: catch with meaningful message
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
             
             // do not touch
             ConsoleOutput();
