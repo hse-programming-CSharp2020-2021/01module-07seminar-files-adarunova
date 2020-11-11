@@ -53,7 +53,7 @@
     {
       "name": "Task02-Test02",
       "setup": "csc Task02/Program.cs",
-      "run": "mono Program.cs",
+      "run": "mono Program.exe",
       "input": "1 2 3 4 5",
       "output": "Incorrect Input",
       "comparison": "exact",
