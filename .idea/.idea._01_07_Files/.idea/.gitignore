@@ -1,0 +1,13 @@
+﻿# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/projectSettingsUpdater.xml
+/modules.xml
+/.idea._01_07_Files.iml
+/contentModel.xml
+# Datasource local storage ignored files
+/../../../../../../../../../:\Users\Shurka\Desktop\1\_01_07_Files\.idea\.idea._01_07_Files\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
